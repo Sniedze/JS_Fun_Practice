@@ -62,23 +62,58 @@ console.log("min " + min(5, 8, 3, 9, 77, 1));
 // max(...nums) ⇒ number
 // Write a function max that is generalized for any amount of arguments
 
+const max = (...nums) => {
+  return nums.reduce((a, b) => {
+    return a > b ? a : b;
+  });
+};
+console.log(max(4, 6, 9, 2, 45, 78, 67));
 // addRecurse(...nums) ⇒ number
 // Write a function addRecurse that is the generalized add function but uses recursion
 
+const addRecurse = (...nums) => {
+  if (nums.lenght < 1) return 0;
+  if (nums.length == 1) return nums[0];
+  console.log(nums.slice(1));
+  return nums[0] + addRecurse(...nums.slice(1));
+};
+console.log(addRecurse(5, 7, 4, 3, 2));
 // mulRecurse(...nums) ⇒ number
 // Write a function mulRecurse that is the generalized mul function but uses recursion
-
+const mulRecurse = (...nums) => {
+  if (nums.length < 1) return 0;
+  if (nums.length == 1) return nums[0];
+  return nums[0] * mulRecurse(...nums.slice(1));
+};
+console.log(mulRecurse(7, 2, 3));
 // minRecurse(...nums) ⇒ number
 // Write a function minRecurse that is the generalized min function but uses recursion
-
+const minRecurse = (...nums) => {
+  if (nums.length < 1) return 0;
+  if (nums.length == 1) return nums[0];
+  return nums[0] < minRecurse(...nums.slice(1))
+    ? nums[0]
+    : minRecurse(...nums.slice(1));
+};
+console.log(minRecurse(5, 8, 4, 2));
 // maxRecurse(...nums) ⇒ number
 // Write a function maxRecurse that is the generalized max function but uses recursion
-
+const maxRecurse = (...nums) => {
+  if (nums.length < 0) return "Empty array";
+  if (nums.length === 1) return nums[0];
+  return nums[0] > maxRecurse(...nums.slice(1))
+    ? nums[0]
+    : maxRecurse(...nums.slice(1));
+};
+console.log(maxRecurse(4, 9, 44, 55, 2));
 // not(func) ⇒ function
 // Write a function not that takes a function and returns the negation of its result
-
+const not = x => !x;
+console.log(not(maxRecurse(4, 9, 44, 55, 2)));
 // acc(func, initial) ⇒ function
 // Write a function acc that takes a function and an initial value and returns a function that runs the initial function on each argument, accumulating the result
+
+const acc = (func, initial) => {};
 
 // accPartial(func, start, end) ⇒ function
 // Write a function accPartial that takes in a function, a start index, and an end index, and returns a function that accumulates a subset of its arguments by applying the given function to all elements between start and end.
@@ -88,16 +123,51 @@ console.log("min " + min(5, 8, 3, 9, 77, 1));
 
 // fill(num) ⇒ array
 // Write a function fill that takes a number and returns an array with that many numbers equal to the given number
+const fill = length => {
+  const newArray = [];
+  for (let i = 0; i < length; i++) {
+    const randomNumber = Math.floor(Math.random() * 10);
+    newArray.push(randomNumber);
+  }
+  console.log(newArray);
+};
+fill(9);
 
 // fillRecurse(num) ⇒ array
 // Write a function fillRecurse that does what fill does but uses recursion
-
+let newArray = [];
+let fillRecurse = length => {
+  let randomNumber = Math.ceil(Math.random() * 100);
+  newArray.push(randomNumber);
+  if (length > 1) fillRecurse(length - 1);
+};
+fillRecurse(7);
+console.log(newArray);
 // set(...args) ⇒ array
 // Write a function set that is given a list of arguments and returns an array with all duplicates removed
-
+const set = (...args) => {
+  args.sort((a, b) => {
+    return a - b;
+  });
+  let newArray = [];
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] !== args[i + 1]) newArray.push(args[i]);
+  }
+  console.log(args);
+  console.log(newArray);
+};
+set(3, 5, 3, 7, 2, 7, 9, 4, 7, 1, 3);
 // identityf(x) ⇒ function
 // Write a function identityf that takes an argument and returns a function that returns that argument
-
+const identityf = x => {
+  const y = x;
+  const second = () => {
+    console.log(y);
+  };
+  return second;
+};
+const newFunc = identityf(555);
+newFunc();
 // addf(a) ⇒ function
 // Write a function addf that adds from two invocations
 
